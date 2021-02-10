@@ -50,7 +50,7 @@ public class ScgmExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler( { EmptyResultDataAccessException.class })
 	public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
 		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
-		String mensagemDesenvolvedor = ex.toString(); 
+		String mensagemDesenvolvedor = ex.getCause() != null ? ex.getCause().toString() : ex.toString(); 
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
