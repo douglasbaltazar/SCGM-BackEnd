@@ -25,6 +25,7 @@ import com.scgm.backend.event.RecursoCriadoEvent;
 import com.scgm.backend.exceptionhandler.ScgmExceptionHandler.Erro;
 import com.scgm.backend.model.Lancamento;
 import com.scgm.backend.repository.LancamentoRepository;
+import com.scgm.backend.repository.filter.LancamentoFilter;
 import com.scgm.backend.service.LancamentoService;
 import com.scgm.backend.service.exception.PessoaInexistenteOuInativaException;
 
@@ -46,8 +47,8 @@ public class LancamentoResource {
 	private MessageSource messageSource;
 	
 	@GetMapping
-	public List<Lancamento> listar() {
-		return lancamentoRepository.findAll();
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentofilter) {
+		return lancamentoRepository.filtrar(lancamentofilter);
 	}
 	
 	@GetMapping("/{codigo}")
